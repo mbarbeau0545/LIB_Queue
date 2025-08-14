@@ -65,10 +65,7 @@
     //                      Public functions - Prototyupes
     //********************************************************************************
     /**
-    *	@brief
-    *	@note   
-    *
-    *
+    *	@brief  Create/INitialize QueueCore Instance
     *	@param[in] 
     *	@param[in]
     *	 
@@ -77,7 +74,7 @@
     */
     t_eReturnCode LIBQUEUE_Create(t_sLIBQUEUE_QueueCore *f_Queue_ps, t_sLIBQUEUE_QueueCfg f_QueueCfg_s);
     /**
-    *	@brief
+    *	@brief      Write an element in Queue 
     *	@note   
     *
     *
@@ -89,7 +86,7 @@
     */
     t_eReturnCode LIBQUEUE_WriteElement(t_sLIBQUEUE_QueueCore *f_Queue_ps, const void *f_element_pv, t_uint16 f_size_u16);
     /**
-    *	@brief
+    *	@brief  Read and Delete an element from the Queue
     *	@note   
     *
     *
@@ -101,6 +98,18 @@
     */
     t_eReturnCode LIBQUEUE_ReadElement(t_sLIBQUEUE_QueueCore *f_Queue_ps, void * f_element_pv, t_uint16 f_size_u16);
     /**
+    *	@brief  Read and NOT Delete an element from the Queue
+    *	@note   
+    *
+    *
+    *	@param[in] 
+    *	@param[in]
+    *	 
+    *
+    *
+    */
+    t_eReturnCode LIBQUEUE_PopElement(t_sLIBQUEUE_QueueCore *f_Queue_ps, void * f_element_pv, t_uint16 f_size_u16);
+    /**
     *	@brief
     *	@note   
     *
@@ -111,7 +120,7 @@
     *
     *
     */
-    t_eReturnCode LIBQUEUE_ClearAll(void);
+    void LIBQUEUE_ClearAll(t_sLIBQUEUE_QueueCore *f_Queue_ps);
     /**
     *	@brief
     *	@note   

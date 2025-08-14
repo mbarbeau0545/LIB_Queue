@@ -154,19 +154,62 @@ t_eReturnCode LIBQUEUE_ReadElement(t_sLIBQUEUE_QueueCore *f_Queue_ps, void * f_e
             Ret_e = SafeMem_memcpy(f_element_pv, startRead_pv, f_Queue_ps->QueueCfg_s.elementSize_u8);
             if(Ret_e == RC_OK)
             {
-                // reset the element to null
-                Ret_e = SafeMem_memset(startRead_pv, 0, f_Queue_ps->QueueCfg_s.elementSize_u8);
-                if(Ret_e == RC_OK)
-                {
-                    f_Queue_ps->head_u8 = LIBQUEUE_QUEUE_NEXT_INDEX(f_Queue_ps->head_u8, f_Queue_ps->QueueCfg_s.bufferSize_u8);
-                    f_Queue_ps->actualSize_u8 -= (t_uint8)1;
-                }
+                f_Queue_ps->head_u8 = LIBQUEUE_QUEUE_NEXT_INDEX(f_Queue_ps->head_u8, f_Queue_ps->QueueCfg_s.bufferSize_u8);
+                f_Queue_ps->actualSize_u8 -= (t_uint8)1;
             }
         }
     }
 
     return Ret_e;
+}
+
+//**************************
+// LIBQUEUE_ReadElement
+//**************************
+t_eReturnCode LIBQUEUE_PopElement(t_sLIBQUEUE_QueueCore *f_Queue_ps, void * f_element_pv, t_uint16 f_size_u16)
+{
+    t_eReturnCode Ret_e = RC_OK;
+    void * startRead_pv  = NULL;
+
+    if(f_Queue_ps == (t_sLIBQUEUE_QueueCore *)NULL
+    || f_element_pv == (void *)NULL)
+    {
+        Ret_e = RC_ERROR_PTR_NULL;
+    }
+    else if(f_size_u16 != f_Queue_ps->QueueCfg_s.elementSize_u8)
+    {
+        Ret_e = RC_ERROR_PARAM_INVALID;
+    }
+    else
+    {
+        if(f_Queue_ps->actualSize_u8 <= (t_uint8)0)
+        {
+            f_Queue_ps->actualSize_u8 = 0;
+            Ret_e = RC_WARNING_NO_OPERATION;
+        }
+        else
+        {
+            startRead_pv = (t_uint32 *)(f_Queue_ps->QueueCfg_s.bufferHead_pv + (t_uint32)(f_Queue_ps->head_u8 * f_Queue_ps->QueueCfg_s.elementSize_u8));
+
+            Ret_e = SafeMem_memcpy(f_element_pv, startRead_pv, f_Queue_ps->QueueCfg_s.elementSize_u8);
+        }
+    }
+
+    return Ret_e;
 }   
+
+//**************************
+// LIBQUEUE_ClearAll
+//**************************
+void LIBQUEUE_ClearAll(t_sLIBQUEUE_QueueCore * f_Queue_ps)
+{
+    if(f_Queue_ps != (t_sLIBQUEUE_QueueCore *)NULL)
+    {
+        f_Queue_ps->actualSize_u8 = (t_uint8)0;
+    }
+
+    return;
+}
 
 //**************************
 // LIBQUEUE_GetQueueSize
@@ -183,7 +226,6 @@ void LIBQUEUE_GetSizeLeft(t_sLIBQUEUE_QueueCore *f_Queue_ps, t_uint8 *f_SizeLeft
 void LIBQUEUE_GetActualSize(t_sLIBQUEUE_QueueCore *f_Queue_ps, t_uint8 *f_acutalSize_u8)
 {
     *f_acutalSize_u8 =  f_Queue_ps->actualSize_u8;
-
     return;
 }
 
