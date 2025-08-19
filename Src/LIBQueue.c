@@ -131,14 +131,19 @@ t_eReturnCode LIBQUEUE_ReadElement(t_sLIBQUEUE_QueueCore *f_Queue_ps, void * f_e
     t_eReturnCode Ret_e = RC_OK;
     void * startRead_pv  = NULL;
 
-    if(f_Queue_ps == (t_sLIBQUEUE_QueueCore *)NULL
-    || f_element_pv == (void *)NULL)
+    if(f_Queue_ps == (t_sLIBQUEUE_QueueCore *)NULL)
     {
         Ret_e = RC_ERROR_PTR_NULL;
     }
     else if(f_size_u16 != f_Queue_ps->QueueCfg_s.elementSize_u8)
     {
         Ret_e = RC_ERROR_PARAM_INVALID;
+    }
+    else if(f_element_pv == (void *)NULL)
+    {
+        //---- just erase the element ----//
+        f_Queue_ps->head_u8 = LIBQUEUE_QUEUE_NEXT_INDEX(f_Queue_ps->head_u8, f_Queue_ps->QueueCfg_s.bufferSize_u8);
+        f_Queue_ps->actualSize_u8 -= (t_uint8)1;
     }
     else
     {

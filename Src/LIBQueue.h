@@ -87,7 +87,8 @@
     t_eReturnCode LIBQUEUE_WriteElement(t_sLIBQUEUE_QueueCore *f_Queue_ps, const void *f_element_pv, t_uint16 f_size_u16);
     /**
     *	@brief  Read and Delete an element from the Queue
-    *	@note   
+    *	@note   If user just want to delete an element, set f_element_pv 
+    *           to NULL.
     *
     *
     *	@param[in] 
