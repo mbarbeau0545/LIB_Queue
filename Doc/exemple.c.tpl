@@ -22,8 +22,8 @@ int main() {
 
     t_sLIBQUEUE_QueueCfg queue_cfg = {
         .bufferHead_pv = tryMax_as,
-        .bufferSize_u8 = BUFFER_SIZE,
-        .elementSize_u8 = sizeof(t_sEssais),
+        .actualSize_u16 = BUFFER_SIZE,
+        .elementSize_u16 = sizeof(t_sEssais),
         .enableOverwrite_b = False,
     };
 

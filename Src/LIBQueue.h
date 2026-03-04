@@ -34,17 +34,17 @@
     typedef struct 
     {
         void     *bufferHead_pv;        /**< Head of the buffer */
-        t_uint8   elementSize_u8;       /**< Size of one element in the Queue */
-        t_uint8   bufferSize_u8;        /**< How many element maximum the  buffer will stock*/
+        t_uint16  elementSize_u16;       /**< Size of one element in the Queue */
+        t_uint16  actualSize_u16;        /**< How many element maximum the  buffer will stock*/
         t_bool    enableOverwrite_b;     /**< Allow library to overwritten an element if buffer full */
     } t_sLIBQUEUE_QueueCfg;
 
     typedef struct 
     {
         t_sLIBQUEUE_QueueCfg QueueCfg_s;     /**< Configuration of the Queue */
-        t_uint8   head_u8;                  /**< Index of the first element */
-        t_uint8   tail_u8;                  /**< Index of the Next element */
-        t_uint8   actualSize_u8;            /**< How many element in the current queue */
+        t_uint16  head_u16;                  /**< Index of the first element */
+        t_uint16  tail_u16;                  /**< Index of the Next element */
+        t_uint16  actualSize_u16;            /**< How many element in the current queue */
 
     } t_sLIBQUEUE_QueueCore;
     /* CAUTION : Automatic generated code section for Structure: Start */
@@ -133,7 +133,7 @@
     *
     *
     */
-    void LIBQUEUE_GetSizeLeft(t_sLIBQUEUE_QueueCore *f_Queue_ps, t_uint8 *f_SizeLeft_u8);
+    void LIBQUEUE_GetSizeLeft(t_sLIBQUEUE_QueueCore *f_Queue_ps, t_uint16 *f_SizeLeft_u8);
     /**
     *	@brief
     *	@note   
@@ -145,7 +145,7 @@
     *
     *
     */
-    void LIBQUEUE_GetActualSize(t_sLIBQUEUE_QueueCore *f_Queue_ps, t_uint8 *f_acutalSize_u8);
+    void LIBQUEUE_GetActualSize(t_sLIBQUEUE_QueueCore *f_Queue_ps, t_uint16 *f_acutalSize_u8);
 #endif // LIBQUEUE_H_INCLUDED
 //************************************************************************************
 // End of File
